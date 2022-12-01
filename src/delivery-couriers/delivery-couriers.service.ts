@@ -30,4 +30,14 @@ export class DeliveryCouriersService {
 
     return DeliveryCouriersDTO.toDTO(courier);
   }
+
+  async deleteDeliveryCourier(id: number): Promise<DeliveryCouriersDTO> {
+    const courier = await this.deliveryCouriersRepository.findOneByOrFail({
+      id,
+    });
+
+    await this.deliveryCouriersRepository.remove(courier);
+
+    return DeliveryCouriersDTO.toDTO(courier);
+  }
 }

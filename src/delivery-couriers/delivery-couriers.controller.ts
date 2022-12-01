@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import {
   AddDeliveryCourierBody,
   DeliveryCouriersDTO,
@@ -22,5 +22,12 @@ export class DeliveryCouriersController {
       name: body.name,
       shippingCost: body.shipping_cost,
     });
+  }
+
+  @Delete(':id')
+  async deleteDeliveryCourier(
+    @Param('id') id: number,
+  ): Promise<DeliveryCouriersDTO> {
+    return await this.service.deleteDeliveryCourier(id);
   }
 }

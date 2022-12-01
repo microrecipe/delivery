@@ -1,6 +1,5 @@
 import { Expose } from 'class-transformer';
 import { IsString } from 'class-validator';
-import { AddDeliveryCourierData } from './deliveries.interface';
 import { DeliveryCourier } from './delivery-couriers/delivery-couriers.entity';
 
 export class DeliveryCouriersDTO {
