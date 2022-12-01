@@ -6,8 +6,10 @@ import {
   Get,
   Param,
   Post,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth.guard';
 import {
   AddDeliveryCourierBody,
   DeliveryCouriersDTO,
@@ -25,6 +27,7 @@ export class DeliveryCouriersController {
   }
 
   @Post()
+  @UseGuards(JwtAuthGuard)
   async addDeliveryCourier(
     @Body() body: AddDeliveryCourierBody,
   ): Promise<DeliveryCouriersDTO> {
@@ -35,6 +38,7 @@ export class DeliveryCouriersController {
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
   async deleteDeliveryCourier(
     @Param('id') id: number,
   ): Promise<DeliveryCouriersDTO> {
