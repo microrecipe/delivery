@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DeliveryCouriersController } from './delivery-couriers/delivery-couriers.controller';
 import { DeliveryCourier } from './delivery-couriers/delivery-couriers.entity';
 import { DeliveryCouriersService } from './delivery-couriers/delivery-couriers.service';
+import { JwtStrategy } from './jwt.strategy';
 
 @Module({
   imports: [
@@ -29,6 +30,6 @@ import { DeliveryCouriersService } from './delivery-couriers/delivery-couriers.s
     TypeOrmModule.forFeature([DeliveryCourier]),
   ],
   controllers: [DeliveryCouriersController],
-  providers: [DeliveryCouriersService],
+  providers: [DeliveryCouriersService, JwtStrategy],
 })
 export class AppModule {}

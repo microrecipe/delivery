@@ -1,4 +1,13 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  ClassSerializerInterceptor,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  UseInterceptors,
+} from '@nestjs/common';
 import {
   AddDeliveryCourierBody,
   DeliveryCouriersDTO,
@@ -6,6 +15,7 @@ import {
 import { DeliveryCouriersService } from './delivery-couriers.service';
 
 @Controller('deliveries/couriers')
+@UseInterceptors(ClassSerializerInterceptor)
 export class DeliveryCouriersController {
   constructor(private readonly service: DeliveryCouriersService) {}
 
@@ -20,7 +30,7 @@ export class DeliveryCouriersController {
   ): Promise<DeliveryCouriersDTO> {
     return await this.service.addDeliveryCourier({
       name: body.name,
-      shippingCost: body.shipping_cost,
+      shippingCost: body.shippingCost,
     });
   }
 
