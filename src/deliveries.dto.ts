@@ -1,4 +1,6 @@
 import { Expose } from 'class-transformer';
+import { IsString } from 'class-validator';
+import { AddDeliveryCourierData } from './deliveries.interface';
 import { DeliveryCourier } from './delivery-couriers/delivery-couriers.entity';
 
 export class DeliveryCouriersDTO {
@@ -17,4 +19,12 @@ export class DeliveryCouriersDTO {
 
   @Expose({ name: 'shipping_cost' })
   shippingCost: number;
+}
+
+export class AddDeliveryCourierBody {
+  @IsString()
+  name: string;
+
+  @IsString()
+  shipping_cost: number;
 }
