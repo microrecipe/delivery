@@ -13,7 +13,7 @@ async function bootstrap() {
     }),
   );
 
-  const restPort = process.env.DELIVERIES_REST_PORT || 80;
+  const restPort = process.env.DELIVERY_REST_PORT || 80;
 
   await app.listen(restPort);
 
