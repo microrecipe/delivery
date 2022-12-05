@@ -1,7 +1,7 @@
 import { Expose } from 'class-transformer';
 import { IsNumber, IsString } from 'class-validator';
 import { AddDeliveryCourierData } from './deliveries.interface';
-import { DeliveryCourier } from './delivery-couriers/delivery-couriers.entity';
+import { DeliveryCourier } from './entitites/delivery-courier.entity';
 
 export class DeliveryCouriersDTO {
   static toDTO(courier: DeliveryCourier) {

@@ -10,3 +10,13 @@ export interface UserType {
   email: string;
   isAdmin: boolean;
 }
+
+export interface ICourier {
+  id?: number;
+  name?: string;
+  shippingCost?: number;
+}
+
+export interface CourierId {
+  id: number;
+}

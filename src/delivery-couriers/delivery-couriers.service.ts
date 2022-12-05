@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm/dist';
 import { DeliveryCouriersDTO } from 'src/deliveries.dto';
 import { AddDeliveryCourierData } from 'src/deliveries.interface';
 import { Repository } from 'typeorm';
-import { DeliveryCourier } from './delivery-couriers.entity';
+import { DeliveryCourier } from '../entitites/delivery-courier.entity';
 
 @Injectable()
 export class DeliveryCouriersService {

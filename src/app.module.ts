@@ -2,9 +2,11 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DeliveryCouriersController } from './delivery-couriers/delivery-couriers.controller';
-import { DeliveryCourier } from './delivery-couriers/delivery-couriers.entity';
+import { DeliveryCourier } from './entitites/delivery-courier.entity';
 import { DeliveryCouriersService } from './delivery-couriers/delivery-couriers.service';
 import { JwtStrategy } from './jwt.strategy';
+import { DeliveryCouriersGrpcController } from './delivery-couriers/delivery-couriers.grpc.controller';
+import { DeliveryCouriersGrpcService } from './delivery-couriers/delivery-couriers.grpc.service';
 
 @Module({
   imports: [
@@ -29,7 +31,11 @@ import { JwtStrategy } from './jwt.strategy';
     }),
     TypeOrmModule.forFeature([DeliveryCourier]),
   ],
-  controllers: [DeliveryCouriersController],
-  providers: [DeliveryCouriersService, JwtStrategy],
+  controllers: [DeliveryCouriersController, DeliveryCouriersGrpcController],
+  providers: [
+    DeliveryCouriersService,
+    JwtStrategy,
+    DeliveryCouriersGrpcService,
+  ],
 })
 export class AppModule {}
