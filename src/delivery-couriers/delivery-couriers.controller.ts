@@ -9,11 +9,11 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth.guard';
 import {
   AddDeliveryCourierBody,
   DeliveryCouriersDTO,
 } from 'src/deliveries.dto';
+import { JwtAuthGuard } from '../auth/auth.guard';
 import { DeliveryCouriersService } from './delivery-couriers.service';
 
 @Controller('deliveries/couriers')

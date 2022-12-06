@@ -4,15 +4,52 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DeliveryCouriersController } from './delivery-couriers/delivery-couriers.controller';
 import { DeliveryCourier } from './entitites/delivery-courier.entity';
 import { DeliveryCouriersService } from './delivery-couriers/delivery-couriers.service';
-import { JwtStrategy } from './jwt.strategy';
+import { JwtStrategy } from './auth/jwt.strategy';
 import { DeliveryCouriersGrpcController } from './delivery-couriers/delivery-couriers.grpc.controller';
 import { DeliveryCouriersGrpcService } from './delivery-couriers/delivery-couriers.grpc.service';
+import { ClientsModule, Transport } from '@nestjs/microservices';
+import { ClientPackageNames } from './deliveries.enum';
+import { Delivery } from './entitites/delivery.entity';
+import { DeliveriesService } from './deliveries/deliveries.service';
+import { DeliveriesController } from './deliveries/deliveries.controller';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    ClientsModule.register([
+      {
+        name: ClientPackageNames.deliveryOrderedTopic,
+        transport: Transport.KAFKA,
+        options: {
+          client: {
+            clientId: 'microrecipe',
+            brokers: process.env.KAFKA_BROKERS.split(','),
+          },
+        },
+      },
+      {
+        name: ClientPackageNames.deliveryRoutedTopic,
+        transport: Transport.KAFKA,
+        options: {
+          client: {
+            clientId: 'microrecipe',
+            brokers: process.env.KAFKA_BROKERS.split(','),
+          },
+        },
+      },
+      {
+        name: ClientPackageNames.deliveryFinishedTopic,
+        transport: Transport.KAFKA,
+        options: {
+          client: {
+            clientId: 'microrecipe',
+            brokers: process.env.KAFKA_BROKERS.split(','),
+          },
+        },
+      },
+    ]),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
@@ -29,13 +66,18 @@ import { DeliveryCouriersGrpcService } from './delivery-couriers/delivery-courie
       }),
       inject: [ConfigService],
     }),
-    TypeOrmModule.forFeature([DeliveryCourier]),
+    TypeOrmModule.forFeature([DeliveryCourier, Delivery]),
   ],
-  controllers: [DeliveryCouriersController, DeliveryCouriersGrpcController],
+  controllers: [
+    DeliveryCouriersController,
+    DeliveryCouriersGrpcController,
+    DeliveriesController,
+  ],
   providers: [
     DeliveryCouriersService,
     JwtStrategy,
     DeliveryCouriersGrpcService,
+    DeliveriesService,
   ],
 })
 export class AppModule {}
