@@ -36,7 +36,7 @@ export class DeliveryCouriersService {
       id,
     });
 
-    await this.deliveryCouriersRepository.remove(courier);
+    await this.deliveryCouriersRepository.softRemove(courier);
 
     return DeliveryCouriersDTO.toDTO(courier);
   }
